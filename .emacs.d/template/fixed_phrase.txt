@@ -1,0 +1,104 @@
+﻿*Header
+# /**
+#  * Created : <2016/12/05 (Mon) 10:00>
+#  * Updated : <2016/12/05 (Mon) 10:00>
+#  */
+
+*Diary
+ ** YYYY/MM/DD (Day)
+ *** Activity Log
+
+ *** Objectives [/]
+   - [ ] 1.
+   - [ ] 2.
+   - [ ] 3.
+
+ *** Results
+ **** 1 : Done
+
+ **** 2 : Done
+
+ **** 3 : In Progress
+
+ *** Excellent
+
+ *** Idea
+
+ *** Memo
+
+ *** Problem
+
+ *** Task
+
+ *** ToDo
+
+ *** Wish
+
+*ActivityLog
+  - [10:00-     ] e-mail
+                  @3.e-mail
+  - [10:30-     ] Task Management
+                  @0.Task
+  - [12:30-     ] Lunch@ (¥)
+                  @1.Diet
+
+*Book
+ * Book Information
+   - Title     ::
+   - Author    ::
+   - Publisher ::
+
+ * Table of Contents
+
+ * ToDo [/]
+   - [ ]
+
+ * My Notes
+
+ * Keyword
+
+ * Quotation
+
+*Minutes
+ * YYYY/MM/DD (Day) Subject
+ ** Date
+   YYYY/MM/DD (Day) HH:MM-HH:MM
+
+ ** Location
+
+ ** Attendees
+
+ ** Materials
+
+ ** Summary/Dicisions
+
+ ** Discussion
+
+ ** ToDo [/]
+   - [ ]
+
+ ** Next Meeting
+
+*BusinessModel
+【Title】
+■Business
+ * Who      ：
+ * Whom     ：
+ * What     ：
+ * How much ：
+
+■Memo
+ * 
+
+■Opinion
+ *
+
+■Reference
+
+*Kabuki
+ * yyyy/mm/dd (Day)
+ ** 場所
+ ** 演目
+ ** 配役
+ ** 見どころ
+ ** 感想
