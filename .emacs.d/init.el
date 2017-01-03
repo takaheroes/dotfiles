@@ -46,14 +46,18 @@
     ;; 使用するパッケージのリスト
     init-loader
     use-package
+    ace-isearch
+    ace-jump-mode
     auto-install
     dired-open
     dired-launch
-    open-junk-file
-    helm
     ddskk
-    recentf-ext
+    helm
+    js2-mode
+    migemo
+    open-junk-file
     popwin
+    recentf-ext
     ;; color-theme
     molokai-theme
     color-theme-sanityinc-solarized

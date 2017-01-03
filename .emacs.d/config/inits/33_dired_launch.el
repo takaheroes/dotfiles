@@ -2,7 +2,6 @@
 ;; dired-launchの設定
 ;;
 
-
 ;; mimeopenが使えない人はxdg-openで代用する
 (setq dired-launch-mailcap-friend '("env" "xdg-open"))
 

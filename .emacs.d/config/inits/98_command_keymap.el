@@ -5,6 +5,18 @@
 ;; C-hをbackspaceに割り当てる
 (global-set-key "\C-h" 'backward-delete-char)
 
+;; C-oをページの上移動に割り当てる
+(global-set-key "\C-o" 'scroll-down)
+
+;;
+;; ace-jum-modeの設定
+;;
+(global-set-key (kbd "C-l") 'ace-jump-word-mode)
+;; ace-isearchでインクリメンタルサーチに組込まれているのでコメントアウト
+;(global-set-key (kbd "C-o") 'ace-jump-char-mode)
+;; あまり利用しないのでコメントアウト
+;;(global-set-key (kbd "C-@") 'ace-jump-line-mode)
+
 ;; M-?をhelp-for-helpに割り当てる
 (global-set-key "\M-?" 'help-for-help)
 
@@ -28,7 +40,6 @@
 
 ;;
 ;; popwinのキーバインド設定
-;;
 ;;
 (global-set-key (kbd "C-z") popwin:keymap)
 

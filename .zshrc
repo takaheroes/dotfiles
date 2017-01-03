@@ -94,3 +94,6 @@ setopt no_beep
 
 # 全履歴を一覧表示する
 function history-all { history -E 1 }
+
+# PATHに/usr/local/binを追加する
+export PATH=/usr/local/bin:$PATH

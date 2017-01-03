@@ -3,13 +3,12 @@
 ;;
 
 ;; dired-openをロードする
-;;(use-package dired-open)
-(require 'dired-open)
+(use-package dired-open)
 
 ;; ファイルごとに開くアプリケーションを指定する
 (setq dired-open-extensions
       '(("xls" . "Microsoft Excel") ("xlsx" . "Microsoft Excel")
-        ("ppt" . "Microsoft PowerPoint") ("pptx" . "Microsoft PowerPoint")
+        ("ppt" . "libreoffice") ("pptx" . "libreoffice")
         ("doc" . "Microsoft Word") ("pptx" . "Microsoft Word")
         ("pdf" . "Preview")
         ))
