@@ -1,12 +1,17 @@
 ﻿*Header
 # /**
 #  * Created : <2016/12/05 (Mon) 10:00>
-#  * Updated : <2016/12/05 (Mon) 10:00>
+#  * Updated : <2017/01/03 (Tue) 18:32>
 #  */
 
 *Diary
  ** YYYY/MM/DD (Day)
  *** Activity Log
+  |        Time | Project  | Task            |
+  |-------------+----------+-----------------|
+  | 10:00-10:30 | 3.e-mail | e-mail          |
+  | 10:30-11:00 | 0.Task   | Task Management |
+  | 12:30-14:00 | 1.Diet   | Lunch@ (¥)      |
 
  *** Objectives [/]
    - [ ] 1.
@@ -33,14 +38,6 @@
  *** ToDo
 
  *** Wish
-
-*ActivityLog
-  - [10:00-     ] e-mail
-                  @3.e-mail
-  - [10:30-     ] Task Management
-                  @0.Task
-  - [12:30-     ] Lunch@ (¥)
-                  @1.Diet
 
 *Book
  * Book Information
@@ -70,7 +67,7 @@
 
  ** Materials
 
- ** Summary/Dicisions
+ ** Summary/Decisions
 
  ** Discussion
 
