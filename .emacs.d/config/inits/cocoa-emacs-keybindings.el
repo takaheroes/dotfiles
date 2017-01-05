@@ -1,9 +1,17 @@
 ;;
-;; cocoa emacs$B8~$1%-!<%P%$%s%I$N@_Dj(B
+;; Cocoa Emacs向けキーバインドの設定
 ;;
 
-;; M-(J\$B$G%P%C%/%9%i%C%7%e$rF~NO$9$k(B
-(define-key global-map [?\M-(J\(B] "\\")
+;; M-¥でバックスラッシュを入力する
+(define-key global-map [?\M-¥] "\\")
 
-;; (J\$B$G%P%C%/%9%i%C%7%e$rF~NO$9$k(B
-;(define-key global-map [?(J\(B] [?\\])
+;; ¥でバックスラッシュを入力する
+;(define-key global-map [?¥] [?\\])
+
+;; C-c wでカーソル下の単語に対して辞書アプリで辞書を引く
+(define-key global-map (kbd "C-c w") 'dictionary)
+
+;; システムへ修飾キーを渡さない
+(setq mac-pass-control-to-system nil)
+(setq mac-pass-command-to-system nil)
+(setq mac-pass-option-to-system nil)
