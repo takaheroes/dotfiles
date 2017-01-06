@@ -1,8 +1,8 @@
 ;;
-;; popwin$B$N@_Dj(B
+;; popwinの設定
 ;;
 
-;; popwin$B$r%m!<%I$9$k(B
+;; popwinをロードする
 (use-package popwin)
 
 (popwin-mode 1)
@@ -10,7 +10,7 @@
 ;(setq helm-samewindow nil)
 ;(setq popwin:adjust-other-windows t)
 
-;; $B%]%C%W%"%C%W$NBg$-$5$r@_Dj$9$k(B
+;; ポップアップの大きさを設定する
 (setq popwin:popup-window-height 0.5)
 
 ;; helm
@@ -22,6 +22,12 @@
 
 ;; Deletions
 (push '("*Deletions*" :position bottom :height 0.2) popwin:special-display-config)
+
+;; Calendar
+(push '("*Calendar*" :position bottom :height 0.4) popwin:special-display-config)
+
+;; Org-modeの org-todo
+;;(push '("*Org todo*" :position bottom :regexp t :height 0.4) popwin:special-display-config)
 
 ;; M-x dired-jump-other-window
 ;(push '(dired-mode :position top) popwin:special-display-config)
