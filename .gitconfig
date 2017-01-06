@@ -5,4 +5,4 @@
   email = takaheroes@gmail.com
 
 [core]
-  editor = "/Applications/Emacs.app/Contents/MacOS/Emacs"
+  editor = "/Applications/Emacs.app/Contents/MacOS/bin/emacsclient" --alternate-editor "/Applications/Emacs.app/Contents/MacOS/Emacs"
