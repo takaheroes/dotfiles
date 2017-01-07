@@ -50,12 +50,18 @@
 (global-set-key (kbd "C-;") 'helm-for-files)
 (define-key helm-map (kbd "C-h") 'delete-backward-char)
 
+
 ;;
 ;; 現在の日付や時間の挿入のキーバインド設定
 ;;
-
 ;; 現在の日付を入力する
 (define-key global-map "\C-cd" `insert-current-date)
-
 ;; 現在の時刻を入力する
 (define-key global-map "\C-ct" `insert-current-time)
+
+;;
+;; Org-modeのキーバインド設定
+;;
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+(define-key global-map "\C-cr" 'org-remember)

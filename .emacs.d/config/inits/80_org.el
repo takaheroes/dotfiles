@@ -5,11 +5,6 @@
 ;; org-modeの初期化
 (require 'org-install)
 
-; キーバインドの設定
-(define-key global-map "\C-cl" 'org-store-link)
-(define-key global-map "\C-ca" 'org-agenda)
-(define-key global-map "\C-cr" 'org-remember)
-
 ; 拡張子がorgのファイルを開いた時は自動的にOrg-Modeに設定
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 
