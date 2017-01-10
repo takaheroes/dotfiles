@@ -9,7 +9,7 @@
 (global-set-key "\C-o" 'scroll-down)
 
 ;;
-;; ace-jum-modeの設定
+;; ace-jump-mode
 ;;
 (global-set-key (kbd "C-l") 'ace-jump-word-mode)
 ;; ace-isearchでインクリメンタルサーチに組込まれているのでコメントアウト
@@ -33,19 +33,20 @@
 ;; C-x C-zで試行錯誤ファイルを開く
 (global-set-key (kbd "C-x C-z") 'open-junk-file)
 
-;; DDSKKのキーバインドを設定する
+;;
+;; DDSKK
+;;
 (global-set-key (kbd "C-x C-j") 'skk-mode)
 (global-set-key "\C-xj" 'skk-auto-fill-mode)
 (global-set-key "\C-xt" 'skk-tutorial)
 
 ;;
-;; popwinのキーバインド設定
+;; popwin
 ;;
 (global-set-key (kbd "C-z") popwin:keymap)
 
-
 ;;
-;; helmのキーバインド設定
+;; helm
 ;;
 (global-set-key (kbd "C-;") 'helm-for-files)
 (define-key helm-map (kbd "C-h") 'delete-backward-char)
@@ -60,7 +61,7 @@
 (define-key global-map "\C-ct" `insert-current-time)
 
 ;;
-;; Org-modeのキーバインド設定
+;; Org-mode
 ;;
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
