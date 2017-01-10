@@ -9,7 +9,7 @@
 (setq default-input-method "japanese-skk")
 
 ;; DDSKK設定ファイルのフォルダを設定する
-(setq skk-user-directory "~/.emacs.d/config/skk")
+(setq skk-user-directory "~/.emacs.d/config/ddskk")
 
 ;; 辞書の文字コードをutf-8、改行コードをLFに設定
 ;(setq skk-jisyo-code 'utf-8-unix)  ; これを設定すると辞書変換できないのでコメントアウト
