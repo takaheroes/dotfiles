@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: header
+# key: header
+# --
+
+ # /**
+ #  * Created : <YYYY/MM/DD (Day) HH:MM>
+ #  * Updated : <2017/01/14 (Sat) 00:18>
+ #  */

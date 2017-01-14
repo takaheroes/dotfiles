@@ -1,0 +1,20 @@
+# -*- mode: snippet -*-
+# name: book
+# key: book
+# --
+* Book Information
+  - Title     ::
+  - Author    ::
+  - Publisher ::
+
+* Table of Contents
+  -
+
+* ToDo [/]
+  - [ ]
+
+* My Notes
+
+* Keyword
+
+* Quotation

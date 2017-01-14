@@ -1,0 +1,22 @@
+# -*- mode: snippet -*-
+# name: minutes
+# key: minutes
+# --
+* YYYY/MM/DD (Day) Subject
+** Date
+  YYYY/MM/DD (Day) HH:MM-HH:MM
+
+** Location
+
+** Attendees
+
+** Materials
+
+** Summary/Decisions
+
+** Discussion
+
+** ToDo [/]
+  - [ ]
+
+** Next Meeting

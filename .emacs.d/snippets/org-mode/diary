@@ -1,0 +1,37 @@
+# -*- mode: snippet -*-
+# name: diary
+# key: diary
+# --
+** YYYY/MM/DD (Day)
+*** Activity Log
+ |        Time | Project  | Task            |
+ |-------------+----------+-----------------|
+ | 10:00-10:30 | 3.e-mail | e-mail          |
+ | 10:30-11:00 | 0.Task   | Task Management |
+ | 12:30-14:00 | 1.Diet   | Lunch@ (¥)      |
+
+*** Objectives [/]
+  - [ ] 1.
+  - [ ] 2.
+  - [ ] 3.
+
+*** Results
+**** 1 : Done
+
+**** 2 : Done
+
+**** 3 : In Progress
+
+*** Excellent
+
+*** Idea
+
+*** Memo
+
+*** Problem
+
+*** Task
+
+*** ToDo
+
+*** Wish
