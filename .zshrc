@@ -97,3 +97,33 @@ function history-all { history -E 1 }
 
 # PATHに/usr/local/binを追加する
 export PATH=/usr/local/bin:$PATH
+
+#
+# zplugの設定
+#
+
+# 初期化処理をする
+source ~/.zplug/init.zsh
+
+# zsh-history-substring-searchの設定
+zplug "zsh-users/zsh-history-substring-search"
+
+# enhanceの設定
+zplug "b4b4r07/enhancd", use:init.sh
+
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+
+# Then, source plugins and add commands to $PATH
+zplug load --verbose
+
+#
+# キーバインド設定
+#
+bindkey -M emacs '^P' history-substring-search-up
+bindkey -M emacs '^N' history-substring-search-down
