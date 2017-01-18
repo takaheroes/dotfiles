@@ -53,3 +53,13 @@ C-u をつけると1レベル上、C-u C-u をつけると1レベル下の見出
 
 ;; DONEの時刻を記録
 (setq org-log-done 'time)
+
+;;
+;; アジェンダ表示
+;;
+
+;; org-modeのファイルを格納するディレクトリを設定する
+(setq org-directory "~/Data/mynotes/")
+
+;; アジェンダ表示の対象ファイル
+(setq org-agenda-files '("~/Data/mynotes/0.management/todo/todo_2017.org"))
