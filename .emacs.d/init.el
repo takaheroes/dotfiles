@@ -53,6 +53,7 @@
     dired-launch
     ddskk
     helm
+    helm-swoop
     js2-mode
     migemo
     open-junk-file
@@ -83,3 +84,19 @@
 ; init-loaderで読み込む設定ファイルのあるディレクトリを指定する
 (init-loader-load "~/.emacs.d/config/inits")
 
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(cua-rectangle-mark-key "")
+ '(package-selected-packages
+   (quote
+    (yasnippet color-theme-sanityinc-solarized molokai-theme recentf-ext popwin open-junk-file migemo js2-mode helm ddskk dired-launch dired-open auto-install ace-jump-mode ace-isearch use-package init-loader)))
+ '(recentf-save-file "~/.emacs.d/etc/recentf/recentf"))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
