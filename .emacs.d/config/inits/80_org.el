@@ -62,4 +62,4 @@ C-u をつけると1レベル上、C-u C-u をつけると1レベル下の見出
 (setq org-directory "~/Data/mynotes/")
 
 ;; アジェンダ表示の対象ファイル
-(setq org-agenda-files '("~/Data/mynotes/0.management/todo/todo_2017.org"))
+(setq org-agenda-files '("~/Data/mynotes_mycomp/0.management/todo/todo_2017.org"))
