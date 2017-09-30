@@ -98,12 +98,13 @@ function history-all { history -E 1 }
 # PATHに/usr/local/binを追加する
 export PATH=/usr/local/bin:$PATH
 
-#
+# ------------------------------------------------
 # zplugの設定
-#
-
+# ------------------------------------------------
+# パスの設定
+export ZPLUG_HOME=/usr/local/opt/zplug
 # 初期化処理をする
-source ~/.zplug/init.zsh
+source $ZPLUG_HOME/init.zsh
 
 # zsh-history-substring-searchの設定
 zplug "zsh-users/zsh-history-substring-search"
