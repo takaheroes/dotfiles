@@ -7,7 +7,7 @@
       (append (list
 	       '(top . 26)
 	       '(left . 0)
-	       '(width . 140)
+	       '(width . 124)
 	       '(height . 38) ;; Macbook Airだとここが60だと画面が変になる
 	       '(cursor-type . box)
 	       )
