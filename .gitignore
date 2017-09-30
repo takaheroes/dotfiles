@@ -2,6 +2,9 @@
 *.*~
 *~
 
+# Macの隠しファイル
+.DS_Store
+
 # DDSKKの設定ファイル
 .emacs.d/config/ddskk/
 !.emacs.d/config/ddskk/init
