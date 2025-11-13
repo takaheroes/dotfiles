@@ -1,9 +1,16 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # 環境変数
 export LANG=ja_JP.UTF-8
 
 # 補完機能を有効にする
-autoload -Uz compinit
-compinit
+#autoload -Uz compinit
+#compinit
 
 # 色を使用出来るようにする
 autoload -Uz colors
@@ -37,7 +44,7 @@ colors
 #esac
 
 # タブ補完時に大文字小文字を区別しない
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+#zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 ## コマンド履歴の設定 --------------------------------
 # 履歴ファイルを設定する
@@ -63,8 +70,9 @@ bindkey "\\ep" history-beginning-search-backward-end
 bindkey "\\en" history-beginning-search-forward-end
 
 # コマンド履歴の検索
-stty -ixon #Ctrl Sを有効にするためデフォルトのCtrl Sで端末ストップを無効化する
-bindkey "^R" history-incremental-search-backward
+# Powerlevel10をインストールすると起動時にエラーが出るためコメントアウト
+#stty -ixon #Ctrl Sを有効にするためデフォルトのCtrl Sで端末ストップを無効化する
+#bindkey "^R" history-incremental-search-backward
 bindkey "^S" history-incremental-search-forward
 ## -----------------------------------------------
 
@@ -112,11 +120,11 @@ export PS1="%F{cyan}[%n@%m]%f %F{magenta}(%D %*)%f %F{green}>%4c%f"$'\n'"%# "
 # PATHに/usr/local/binを追加する
 export PATH=/usr/local/bin:$PATH
 
-export PATH=$PATH:~/Applications/apache-maven-3.8.8/bin:/opt/homebrew/bin
+export PATH=$PATH:~/Applications/apache-maven-3.8.8/bin:/opt/homebrew/bin:/usr/local/bin
 export PATH=/opt/homebrew/var/nodebrew/current/bin:$PATH
 export NODEBREW_ROOT=/opt/homebrew/var/nodebrew
 #export JAVA_HOME=`/usr/libexec/java_home -v "17.0.10"`
-export JAVA_HOME=`/usr/libexec/java_home -v "14.0.2"`
+#export JAVA_HOME=`/usr/libexec/java_home -v "14.0.2"`
 export PATH=$JAVA_HOME/bin:$PATH
 
 
@@ -150,3 +158,71 @@ export PATH=$JAVA_HOME/bin:$PATH
 #
 #bindkey -M emacs '^P' history-substring-search-up
 #bindkey -M emacs '^N' history-substring-search-down
+
+### Added by Zinit's installer
+if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
+    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
+        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+        print -P "%F{160} The clone has failed.%f%b"
+fi
+
+source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+### End of Zinit's installer chunk
+
+# zsh Theme Powerlevel10k
+zinit ice depth=1; zinit light romkatv/powerlevel10k
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# zsh-completions
+## コマンド補完
+zinit ice wait'0'; zinit light zsh-users/zsh-completions
+autoload -Uz compinit && compinit
+
+## 補完で小文字でも大文字にマッチさせる
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+## 補完候補を一覧表示したとき、Tabや矢印で選択できるようにする
+zstyle ':completion:*:default' menu select=1
+
+# zsh-syntax-highliting
+zinit light zsh-users/zsh-syntax-highlighting
+
+# zsh-autosuggestions
+zinit light zsh-users/zsh-autosuggestions
+bindkey '^t' autosuggest-accept
+
+## ctrl + r で過去に実行したコマンドを選択できるようにする。
+function peco-select-history() {
+  BUFFER=$(\history -n -r 1 | peco --query "$LBUFFER")
+  CURSOR=$#BUFFER
+  zle clear-screen
+}
+zle -N peco-select-history
+bindkey '^r' peco-select-history
+
+# pecoの活用2
+# cdr自体の設定
+if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]]; then
+    autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+    add-zsh-hook chpwd chpwd_recent_dirs
+    zstyle ':completion:*' recent-dirs-insert both
+    zstyle ':chpwd:*' recent-dirs-default true
+    zstyle ':chpwd:*' recent-dirs-max 1000
+fi
+
+# ctrl + f で過去に移動したことのあるディレクトリを選択できるようにする。
+function peco-cdr () {
+    local selected_dir="$(cdr -l | sed 's/^[0-9]\+ \+//' | peco --prompt="cdr >" --query "$LBUFFER")"
+    if [ -n "$selected_dir" ]; then
+        BUFFER="cd ${selected_dir}"
+        zle accept-line
+    fi
+}
+zle -N peco-cdr
+bindkey '^f' peco-cdr
