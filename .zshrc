@@ -171,7 +171,7 @@ fi
 source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
-<<<<<<< Updated upstream
+
 ### End of Zinit's installer chunk
 
 # zsh Theme Powerlevel10k
@@ -196,7 +196,7 @@ zinit light zsh-users/zsh-syntax-highlighting
 
 # zsh-autosuggestions
 zinit light zsh-users/zsh-autosuggestions
-bindkey '^t' autosuggest-accept
+bindkey '^j' autosuggest-accept
 
 ## ctrl + r で過去に実行したコマンドを選択できるようにする。
 function peco-select-history() {
@@ -215,19 +215,21 @@ if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]
     zstyle ':completion:*' recent-dirs-insert both
     zstyle ':chpwd:*' recent-dirs-default true
     zstyle ':chpwd:*' recent-dirs-max 1000
+    zstyle ':chpwd:*' recent-dirs-file "$HOME/.cache/chpwd-recent-dirs"
 fi
 
 # ctrl + f で過去に移動したことのあるディレクトリを選択できるようにする。
 function peco-cdr () {
-    local selected_dir="$(cdr -l | sed 's/^[0-9]\+ \+//' | peco --prompt="cdr >" --query "$LBUFFER")"
+    # local selected_dir="$(cdr -l | sed -e 's/^[0-9]\+ \+//' | peco --prompt="cdr >" --query "$LBUFFER")"
+    local selected_dir="$(cdr -l | sed -E 's/^[0-9]+ +//' | peco --prompt="cdr >" --query "$LBUFFER")"
     if [ -n "$selected_dir" ]; then
         BUFFER="cd ${selected_dir}"
         zle accept-line
     fi
 }
 zle -N peco-cdr
-bindkey '^f' peco-cdr
-=======
+bindkey '^o' peco-cdr
+
 
 # Load a few important annexes, without Turbo
 # (this is currently required for annexes)
@@ -238,4 +240,4 @@ zinit light-mode for \
     zdharma-continuum/zinit-annex-rust
 
 ### End of Zinit's installer chunk
->>>>>>> Stashed changes
+
