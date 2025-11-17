@@ -51,8 +51,8 @@ colors
 HISTFILE=~/.zsh_history
 
 ## 履歴の数を設定する
-HISTSIZE=1000000
-SAVEHIST=1000000
+HISTSIZE=100000
+SAVEHIST=100000
 
 ## 重複したコマンドを履歴に残さないように設定する
 setopt hist_ignore_all_dups
@@ -96,33 +96,32 @@ DIRSTACKSIZE=20
 ### dirsだけでdirs-vする
 alias dirs='dirs -v'
 
-# カラー設定
-## lsのカラー設定
-export LSCOLORS=exfxcxdxbxegedabagacad
-export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-alias ls="ls -G"
-alias gls="gls --color"
+# 色設定
+## Ubuntuの場合（Windows WSLでUbuntuをインストールの場合を含む）
+if uname -a | grep -sq "Ubuntu" ; then
+  ## lsの色設定（GNU系：Linux）
+  export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 
-# 補完候補一覧をカラー表示する
+  ## aliasの設定
+  alias ls="ls --color=auto"
+
+## Macの場合
+elif [ "$(uname)" = "Darwin" ]; then
+  ## lsの色設定（BSD系：Mac）
+  export LSCOLORS=exfxcxdxbxegedabagacad
+
+  ## aliasの設定
+  alias ls="ls -G"
+fi
+
+## 補完候補一覧の色設定
 zstyle ':completion:*' list-colors 'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
-
-
-
-
-
-
-
-
-
 
 # 日本語ファイル名を表示可能にする
 setopt print_eight_bit
 
 # beep を無効にする
 setopt no_beep
-
-# 全履歴を一覧表示する
-function history-all { history -E 1 }
 
 #ターミナルのタイトル設定
 #export PS1="%F{cyan}[%n@%m] %c %# %f"
@@ -232,14 +231,24 @@ if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]
     zstyle ':chpwd:*' recent-dirs-file "$HOME/.cache/chpwd-recent-dirs"
 fi
 
-### cdrから曖昧検索する関するを定義する
+### cdrから曖昧検索する関数を定義する
 function peco-cdr () {
-    # local selected_dir="$(cdr -l | sed -e 's/^[0-9]\+ \+//' | peco --prompt="cdr >" --query "$LBUFFER")"
-    local selected_dir="$(cdr -l | sed -E 's/^[0-9]+ +//' | peco --prompt="cdr >" --query "$LBUFFER")"
-    if [ -n "$selected_dir" ]; then
-        BUFFER="cd ${selected_dir}"
-        zle accept-line
-    fi
+  ## 変数定義
+  local selected_dir
+
+  ## Ubuntuの場合（Windows WSLでUbuntuをインストールの場合を含む）
+  if uname -a | grep -sq "Ubuntu" ; then
+    selected_dir="$(cdr -l | sed -e 's/^[0-9]\+ \+//' | peco --prompt="cdr >" --query "$LBUFFER")"
+
+  # Macの場合
+  elif [ "$(uname)" = "Darwin" ]; then
+    selected_dir="$(cdr -l | sed -E 's/^[0-9]+ +//' | peco --prompt="cdr >" --query "$LBUFFER")"
+  fi
+
+  if [ -n "$selected_dir" ]; then
+    BUFFER="cd ${selected_dir}"
+    zle accept-line
+  fi
 }
 ### 関数をウィジェットとして登録し、キーバインドを定義する
 zle -N peco-cdr
