@@ -46,43 +46,58 @@ colors
 # タブ補完時に大文字小文字を区別しない
 #zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
-## コマンド履歴の設定 --------------------------------
-# 履歴ファイルを設定する
+# コマンド履歴
+## コマンド履歴を保存するファイル名を設定する
 HISTFILE=~/.zsh_history
 
-# 履歴の数を設定する
+## 履歴の数を設定する
 HISTSIZE=1000000
 SAVEHIST=1000000
 
-# 同じコマンドを履歴に残さない
+## 重複したコマンドを履歴に残さないように設定する
 setopt hist_ignore_all_dups
 
-# 履歴ファイルを共有する
+## 履歴ファイルを共有する
 setopt share_history
 
-# コマンド履歴の有効化
+## コマンド履歴を有効化する
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
+
+## コマンド履歴関連のキーバインドを設定する
 bindkey "^p" history-beginning-search-backward-end
 bindkey "^n" history-beginning-search-forward-end
-bindkey "\\ep" history-beginning-search-backward-end
-bindkey "\\en" history-beginning-search-forward-end
-
-# コマンド履歴の検索
-# Powerlevel10をインストールすると起動時にエラーが出るためコメントアウト
-#stty -ixon #Ctrl Sを有効にするためデフォルトのCtrl Sで端末ストップを無効化する
-#bindkey "^R" history-incremental-search-backward
 bindkey "^S" history-incremental-search-forward
-## -----------------------------------------------
 
-# emacs風キーバインドにする
+## 過去の設定のコメントアウト
+## Powerlevel10をインストールすると起動時にエラーが出るためコメントアウト
+## stty -ixon #Ctrl Sを有効にするためデフォルトのCtrl Sで端末ストップを無効化する
+## bindkey "^R" history-incremental-search-backward
+
+# キーバインド
+## Emacs風キーバインドにする
 bindkey -e
 
-# ディレクトリ名でcdする
+# ディレクトリ移動
+## ディレクトリ名でcdする
 setopt auto_cd
 
-# lsのカラー設定
+## pushd関連の設定
+### cd時に自動でpushdする
+setopt auto_pushd
+
+### 同じディレクトリをpushdしない
+setopt PUSHD_IGNORE_DUPS
+
+### pushdで保持する履歴の数を設定する
+DIRSTACKSIZE=20
+
+### dirsだけでdirs-vする
+alias dirs='dirs -v'
+
+# カラー設定
+## lsのカラー設定
 export LSCOLORS=exfxcxdxbxegedabagacad
 export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 alias ls="ls -G"
@@ -91,17 +106,13 @@ alias gls="gls --color"
 # 補完候補一覧をカラー表示する
 zstyle ':completion:*' list-colors 'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
 
-# cd時に自動でpushdする
-setopt auto_pushd
 
-# 同じディレクトリをpushdしない
-setopt PUSHD_IGNORE_DUPS
 
-# pushdで保持する履歴は20個
-DIRSTACKSIZE=20
 
-# dirsだけでdirs-vする
-alias dirs='dirs -v'
+
+
+
+
 
 
 # 日本語ファイル名を表示可能にする
@@ -180,7 +191,7 @@ zinit ice depth=1; zinit light romkatv/powerlevel10k
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# zsh-completions
+# プラグイン「zsh-completions」の導入
 ## コマンド補完
 zinit ice wait'0'; zinit light zsh-users/zsh-completions
 autoload -Uz compinit && compinit
@@ -191,24 +202,27 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 ## 補完候補を一覧表示したとき、Tabや矢印で選択できるようにする
 zstyle ':completion:*:default' menu select=1
 
-# zsh-syntax-highliting
+# プラグイン「zsh-syntax-highliting」の導入
 zinit light zsh-users/zsh-syntax-highlighting
 
-# zsh-autosuggestions
+# プラグイン「zsh-autosuggestions」の導入
 zinit light zsh-users/zsh-autosuggestions
-bindkey '^j' autosuggest-accept
+#bindkey '^j' autosuggest-accept
 
-## ctrl + r で過去に実行したコマンドを選択できるようにする。
+# peco関連の設定
+## 過去のコマンド履歴を曖昧検索する
+### 過去のコマンド履歴を曖昧検索する関数を定義する
 function peco-select-history() {
   BUFFER=$(\history -n -r 1 | peco --query "$LBUFFER")
   CURSOR=$#BUFFER
   zle clear-screen
 }
+### 関数をウィジェットとして登録し、キーバインドを定義する
 zle -N peco-select-history
 bindkey '^r' peco-select-history
 
-# pecoの活用2
-# cdr自体の設定
+## 過去のディレクトリ移動を曖昧検索する
+### cdrを設定する
 if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]]; then
     autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
     add-zsh-hook chpwd chpwd_recent_dirs
@@ -218,7 +232,7 @@ if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]
     zstyle ':chpwd:*' recent-dirs-file "$HOME/.cache/chpwd-recent-dirs"
 fi
 
-# ctrl + f で過去に移動したことのあるディレクトリを選択できるようにする。
+### cdrから曖昧検索する関するを定義する
 function peco-cdr () {
     # local selected_dir="$(cdr -l | sed -e 's/^[0-9]\+ \+//' | peco --prompt="cdr >" --query "$LBUFFER")"
     local selected_dir="$(cdr -l | sed -E 's/^[0-9]+ +//' | peco --prompt="cdr >" --query "$LBUFFER")"
@@ -227,10 +241,11 @@ function peco-cdr () {
         zle accept-line
     fi
 }
+### 関数をウィジェットとして登録し、キーバインドを定義する
 zle -N peco-cdr
 bindkey '^o' peco-cdr
 
-
+# zinitインストール時の自動設定
 # Load a few important annexes, without Turbo
 # (this is currently required for annexes)
 zinit light-mode for \
@@ -240,4 +255,3 @@ zinit light-mode for \
     zdharma-continuum/zinit-annex-rust
 
 ### End of Zinit's installer chunk
-
