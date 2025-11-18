@@ -97,7 +97,7 @@ DIRSTACKSIZE=20
 alias dirs='dirs -v'
 
 # 色設定
-## Ubuntuの場合（Windows WSLでUbuntuをインストールの場合を含む）
+## Ubuntuの場合
 if uname -a | grep -sq "Ubuntu" ; then
   ## lsの色設定（GNU系：Linux）
   export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
@@ -112,6 +112,15 @@ elif [ "$(uname)" = "Darwin" ]; then
 
   ## aliasの設定
   alias ls="ls -G"
+
+## Windows WSLの場合
+elif [ "$(uname)" = "Linux" ]; then
+  ## lsの色設定（GNU系：Linux）
+  export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+
+  ## aliasの設定
+  alias ls="ls --color=auto"
+
 fi
 
 ## 補完候補一覧の色設定
@@ -236,13 +245,17 @@ function peco-cdr () {
   ## 変数定義
   local selected_dir
 
-  ## Ubuntuの場合（Windows WSLでUbuntuをインストールの場合を含む）
+  ## Ubuntuの場合
   if uname -a | grep -sq "Ubuntu" ; then
     selected_dir="$(cdr -l | sed -e 's/^[0-9]\+ \+//' | peco --prompt="cdr >" --query "$LBUFFER")"
 
   # Macの場合
   elif [ "$(uname)" = "Darwin" ]; then
     selected_dir="$(cdr -l | sed -E 's/^[0-9]+ +//' | peco --prompt="cdr >" --query "$LBUFFER")"
+    
+  # Windows WSLの場合
+  elif [ "$(uname)" = "Linux" ]; then
+    selected_dir="$(cdr -l | sed -e 's/^[0-9]\+ \+//' | peco --prompt="cdr >" --query "$LBUFFER")"
   fi
 
   if [ -n "$selected_dir" ]; then
