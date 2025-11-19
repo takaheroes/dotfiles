@@ -136,16 +136,25 @@ setopt no_beep
 #export PS1="%F{cyan}[%n@%m] %c %# %f"
 export PS1="%F{cyan}[%n@%m]%f %F{magenta}(%D %*)%f %F{green}>%4c%f"$'\n'"%# "
 
-# PATHに/usr/local/binを追加する
-export PATH=/usr/local/bin:$PATH
 
-export PATH=$PATH:~/Applications/apache-maven-3.8.8/bin:/opt/homebrew/bin:/usr/local/bin
-export PATH=/opt/homebrew/var/nodebrew/current/bin:$PATH
+# JAVAの設定
+## Macの場合
+if [ "$(uname)" = "Darwin" ]; then
+  #export JAVA_HOME=`/usr/libexec/java_home -v "17.0.10"`
+  export JAVA_HOME=`/usr/libexec/java_home -v "14.0.2"`
+fi
+
+# nodebrewの設定
+## Macの場合
+if [ "$(uname)" = "Darwin" ]; then
 export NODEBREW_ROOT=/opt/homebrew/var/nodebrew
-#export JAVA_HOME=`/usr/libexec/java_home -v "17.0.10"`
-#export JAVA_HOME=`/usr/libexec/java_home -v "14.0.2"`
-export PATH=$JAVA_HOME/bin:$PATH
+fi
 
+# PATHの設定
+## Macの場合
+if [ "$(uname)" = "Darwin" ]; then
+  export PATH=$PATH:~/Applications/apache-maven-3.8.8/bin:/opt/homebrew/bin:/usr/local/bin:/opt/homebrew/var/nodebrew/current/bin:$JAVA_HOME/bin
+fi
 
 # nvm
 ## Windows WSLの場合
@@ -154,8 +163,6 @@ if [ "$(uname)" = "Linux" ]; then
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 fi
-
-#
 
 # ------------------------------------------------
 # zplugの設定
