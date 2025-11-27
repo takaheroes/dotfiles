@@ -151,8 +151,11 @@ export NODEBREW_ROOT=/opt/homebrew/var/nodebrew
 fi
 
 # PATHの設定
+## Windows WSLの場合
+if [ "$(uname)" = "Linux" ]; then
+  export PATH=$PATH:~/.local/bin
 ## Macの場合
-if [ "$(uname)" = "Darwin" ]; then
+elif [ "$(uname)" = "Darwin" ]; then
   export PATH=$PATH:~/Applications/apache-maven-3.8.8/bin:/opt/homebrew/bin:/usr/local/bin:/opt/homebrew/var/nodebrew/current/bin:$JAVA_HOME/bin
 fi
 
@@ -165,6 +168,9 @@ if [ "$(uname)" = "Linux" ]; then
 fi
 
 # aliasの設定
+## 共通設定
+alias ll="ls -l"
+alias la="ls -la"
 ## Macの場合
 if [ "$(uname)" = "Darwin" ]; then
   alias coteditor="open -a 'CotEditor.app'"
