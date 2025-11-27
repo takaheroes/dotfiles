@@ -176,6 +176,11 @@ if [ "$(uname)" = "Darwin" ]; then
   alias coteditor="open -a 'CotEditor.app'"
 fi
 
+# 環境変数の設定
+## pecoの表示を折り返す
+export PECO_LAYOUT=bottom-up
+
+
 # ------------------------------------------------
 # zplugの設定
 # ------------------------------------------------
