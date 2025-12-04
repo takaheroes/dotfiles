@@ -179,7 +179,11 @@ fi
 # 環境変数の設定
 ## pecoの表示を折り返す
 export PECO_LAYOUT=bottom-up
-
+## fzfのオプションを設定する
+### 折り返し表示をする
+export FZF_DEFAULT_OPTS="
+--preview-window=wrap
+"
 
 # ------------------------------------------------
 # zplugの設定
@@ -251,17 +255,30 @@ zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
 #bindkey '^j' autosuggest-accept
 
+
+# fzf関連の設定
+## 過去のコマンド履歴を曖昧検索する
+### 過去のコマンド履歴を曖昧検索する関数を定義する
+function fzf-select-history() {
+    BUFFER=$(\history -n -r 1 | fzf --query "$LBUFFER" --reverse)
+    CURSOR=$#BUFFER
+    zle reset-prompt
+}
+### 関数をウィジェットとして登録し、キーバインドを定義する
+zle -N fzf-select-history
+bindkey '^r' fzf-select-history
+
 # peco関連の設定
 ## 過去のコマンド履歴を曖昧検索する
 ### 過去のコマンド履歴を曖昧検索する関数を定義する
-function peco-select-history() {
-  BUFFER=$(\history -n -r 1 | peco --query "$LBUFFER")
-  CURSOR=$#BUFFER
-  zle clear-screen
-}
+#function peco-select-history() {
+#  BUFFER=$(\history -n -r 1 | peco --query "$LBUFFER")
+#  CURSOR=$#BUFFER
+#  zle clear-screen
+#}
 ### 関数をウィジェットとして登録し、キーバインドを定義する
-zle -N peco-select-history
-bindkey '^r' peco-select-history
+#zle -N peco-select-history
+#bindkey '^r' peco-select-history
 
 ## 過去のディレクトリ移動を曖昧検索する
 ### cdrを設定する
@@ -275,21 +292,21 @@ if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]
 fi
 
 ### cdrから曖昧検索する関数を定義する
-function peco-cdr () {
+function fzf-cdr() {
   ## 変数定義
   local selected_dir
 
   ## Ubuntuの場合
   if uname -a | grep -sq "Ubuntu" ; then
-    selected_dir="$(cdr -l | sed -e 's/^[0-9]\+ \+//' | peco --prompt="cdr >" --query "$LBUFFER")"
+    selected_dir="$(cdr -l | sed -e 's/^[0-9]\+ \+//' | fzf --prompt="cdr >" --wrap --query "$LBUFFER" --reverse)"
 
   # Macの場合
   elif [ "$(uname)" = "Darwin" ]; then
-    selected_dir="$(cdr -l | sed -E 's/^[0-9]+ +//' | peco --prompt="cdr >" --query "$LBUFFER")"
+    selected_dir="$(cdr -l | sed -E 's/^[0-9]+ +//' | fzf --prompt="cdr >" --wrap --query "$LBUFFER" --reverse)"
     
   # Windows WSLの場合
   elif [ "$(uname)" = "Linux" ]; then
-    selected_dir="$(cdr -l | sed -e 's/^[0-9]\+ \+//' | peco --prompt="cdr >" --query "$LBUFFER")"
+    selected_dir="$(cdr -l | sed -e 's/^[0-9]\+ \+//' | fzf --prompt="cdr >" --wrap --query "$LBUFFER" --reverse)"
   fi
 
   if [ -n "$selected_dir" ]; then
@@ -297,9 +314,35 @@ function peco-cdr () {
     zle accept-line
   fi
 }
+zle -N fzf-cdr
+bindkey '^o' fzf-cdr
+
+### cdrから曖昧検索する関数を定義する
+#function peco-cdr () {
+#  ## 変数定義
+#  local selected_dir
+#
+#  ## Ubuntuの場合
+#  if uname -a | grep -sq "Ubuntu" ; then
+#    selected_dir="$(cdr -l | sed -e 's/^[0-9]\+ \+//' | peco --prompt="cdr >" --query "$LBUFFER")"
+#
+#  # Macの場合
+#  elif [ "$(uname)" = "Darwin" ]; then
+#    selected_dir="$(cdr -l | sed -E 's/^[0-9]+ +//' | peco --prompt="cdr >" --query "$LBUFFER")"
+#    
+#  # Windows WSLの場合
+#  elif [ "$(uname)" = "Linux" ]; then
+#    selected_dir="$(cdr -l | sed -e 's/^[0-9]\+ \+//' | peco --prompt="cdr >" --query "$LBUFFER")"
+#  fi
+#
+#  if [ -n "$selected_dir" ]; then
+#    BUFFER="cd ${selected_dir}"
+#    zle accept-line
+#  fi
+#}
 ### 関数をウィジェットとして登録し、キーバインドを定義する
-zle -N peco-cdr
-bindkey '^o' peco-cdr
+#zle -N peco-cdr
+#bindkey '^o' peco-cdr
 
 # zinitインストール時の自動設定
 # Load a few important annexes, without Turbo
