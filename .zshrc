@@ -317,6 +317,11 @@ function fzf-cdr() {
 zle -N fzf-cdr
 bindkey '^o' fzf-cdr
 
+# tmuxの設定
+if [[ -z "$TMUX" && -z "$VIM" && "$TERM_PROGRAM" != "vscode" && $- == *l* ]] ; then
+  tmux attach-session -t default || tmux new-session -s default
+fi
+
 ### cdrから曖昧検索する関数を定義する
 #function peco-cdr () {
 #  ## 変数定義
