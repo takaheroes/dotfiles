@@ -185,6 +185,12 @@ export FZF_DEFAULT_OPTS="
 --preview-window=wrap
 "
 
+# tmuxの設定
+# powerlevel10kの設定より前に設定する必要がある
+if [[ -z "$TMUX" && -z "$VIM" && "$TERM_PROGRAM" != "vscode" && $- == *l* ]] ; then
+  tmux attach-session -t default || tmux new-session -s default
+fi
+
 # ------------------------------------------------
 # zplugの設定
 # ------------------------------------------------
@@ -316,11 +322,6 @@ function fzf-cdr() {
 }
 zle -N fzf-cdr
 bindkey '^o' fzf-cdr
-
-# tmuxの設定
-if [[ -z "$TMUX" && -z "$VIM" && "$TERM_PROGRAM" != "vscode" && $- == *l* ]] ; then
-  tmux attach-session -t default || tmux new-session -s default
-fi
 
 ### cdrから曖昧検索する関数を定義する
 #function peco-cdr () {
