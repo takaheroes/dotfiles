@@ -156,7 +156,7 @@ if [ "$(uname)" = "Linux" ]; then
   export PATH=$PATH:~/.local/bin
 ## Macの場合
 elif [ "$(uname)" = "Darwin" ]; then
-  export PATH=$PATH:~/Applications/apache-maven-3.8.8/bin:/opt/homebrew/bin:/usr/local/bin:/opt/homebrew/var/nodebrew/current/bin:$JAVA_HOME/bin
+  export PATH=$PATH:~/Applications/apache-maven-3.8.8/bin:/opt/homebrew/bin:/usr/local/bin:/opt/homebrew/var/nodebrew/current/bin:$JAVA_HOME/bin:~/.local/bin
 fi
 
 # nvm
@@ -187,9 +187,9 @@ export FZF_DEFAULT_OPTS="
 
 # tmuxの設定
 # powerlevel10kの設定より前に設定する必要がある
-if [[ -z "$TMUX" && -z "$VIM" && "$TERM_PROGRAM" != "vscode" && $- == *l* ]] ; then
-  tmux attach-session -t default || tmux new-session -s default
-fi
+#if [[ -z "$TMUX" && -z "$VIM" && "$TERM_PROGRAM" != "vscode" && $- == *l* ]] ; then
+#  tmux attach-session -t default || tmux new-session -s default
+#fi
 
 # ------------------------------------------------
 # zplugの設定
