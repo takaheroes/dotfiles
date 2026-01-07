@@ -109,6 +109,7 @@ if uname -a | grep -sq "Ubuntu" ; then
 elif [ "$(uname)" = "Darwin" ]; then
   ## lsの色設定（BSD系：Mac）
   export LSCOLORS=exfxcxdxbxegedabagacad
+  export DISPLAY=:0
 
   ## aliasの設定
   alias ls="ls -G"
