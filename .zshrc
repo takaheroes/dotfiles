@@ -183,8 +183,16 @@ export PECO_LAYOUT=bottom-up
 ## fzfのオプションを設定する
 ### 折り返し表示をする
 export FZF_DEFAULT_OPTS="
+--layout=reverse
 --preview-window=wrap
 "
+export FZF_DEFAULT_COMMAND='fd'
+
+# プロジェクト向け環境変数の設定
+## JIP
+# export AWS_REGION="ap-northeast-1"
+# export ANTHROPIC_MODEL="arn:aws:bedrock:ap-northeast-1:843581809395:application-inference-profile/i4b9ynuycs41"
+# export CLAUDE_CODE_USE_BEDROCK=1
 
 # tmuxの設定
 # powerlevel10kの設定より前に設定する必要がある
@@ -323,6 +331,12 @@ function fzf-cdr() {
 }
 zle -N fzf-cdr
 bindkey '^o' fzf-cdr
+
+## カレントディレクトリを検索する。
+fcd() {
+  local dir
+  dir=$(fd . --max-depth 1 --type d | fzf --preview 'ls -la {}' --reverse) && cd "$dir"
+}
 
 ### cdrから曖昧検索する関数を定義する
 #function peco-cdr () {

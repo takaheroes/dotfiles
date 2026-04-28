@@ -36,6 +36,8 @@ local function detect_environment()
   env.is_wsl = vim.fn.has("wsl") == 1
   -- VSCode Neovim
   env.is_vscode = vim.g.vscode ~= nil
+  -- Mac
+  env.is_mac = vim.fn.has("mac") == 1
   return env
 end
 -- 実行環境を取得
@@ -51,4 +53,17 @@ elseif env.is_windows then
   vim.o.shell = "cmd.exe"
   vim.cmd("autocmd InsertLeave * :call system('zenhan 0')")
   vim.cmd("autocmd CmdlineLeave * :call system('zenhan 0')")
+elseif env.is_mac then
+  vim.cmd([[autocmd InsertLeave * :call system("osascript -e 'tell application \"System Events\" to key code 102'")]])
+  vim.cmd([[autocmd CmdlineLeave * :call system("osascript -e 'tell application \"System Events\" to key code 102'")]])
 end
+
+local vim = vim
+local Plug = vim.fn["plug#"]
+
+vim.call("plug#begin")
+Plug("vim-denops/denops.vim")
+Plug("lambdalisue/kensaku.vim")
+Plug("lambdalisue/kensaku-search.vim")
+Plug("yuki-yano/fuzzy-motion.vim")
+vim.call("plug#end")
