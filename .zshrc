@@ -157,7 +157,9 @@ if [ "$(uname)" = "Linux" ]; then
   export PATH=$PATH:~/.local/bin
 ## Macの場合
 elif [ "$(uname)" = "Darwin" ]; then
-  export PATH=$PATH:~/Applications/apache-maven-3.8.8/bin:/opt/homebrew/bin:/usr/local/bin:/opt/homebrew/var/nodebrew/current/bin:$JAVA_HOME/bin:~/.local/bin
+# /opt/homebrew/bin を $PATH より前に置くことで、.zprofile の python.org 挿入を無効化した後、python3 が確実にHomebrew版(3.13系)を指すようになる。
+#  export PATH=$PATH:~/Applications/apache-maven-3.8.8/bin:/opt/homebrew/bin:/usr/local/bin:/opt/homebrew/var/nodebrew/current/bin:$JAVA_HOME/bin:~/.local/bin
+  export PATH=/opt/homebrew/bin:/usr/local/bin:$PATH:~/Applications/apache-maven-3.8.8/bin:/opt/homebrew/var/nodebrew/current/bin:$JAVA_HOME/bin:~/.local/bin
 fi
 
 # nvm

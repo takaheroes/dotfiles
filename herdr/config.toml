@@ -1,0 +1,8 @@
+onboarding = false
+
+[theme]
+name = "solarized"
+auto_switch = false
+
+[keys]
+prefix = "ctrl+q"
