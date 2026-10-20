@@ -57,13 +57,3 @@ elseif env.is_mac then
   vim.cmd([[autocmd InsertLeave * :call system("osascript -e 'tell application \"System Events\" to key code 102'")]])
   vim.cmd([[autocmd CmdlineLeave * :call system("osascript -e 'tell application \"System Events\" to key code 102'")]])
 end
-
-local vim = vim
-local Plug = vim.fn["plug#"]
-
-vim.call("plug#begin")
-Plug("vim-denops/denops.vim")
-Plug("lambdalisue/kensaku.vim")
-Plug("lambdalisue/kensaku-search.vim")
-Plug("yuki-yano/fuzzy-motion.vim")
-vim.call("plug#end")
