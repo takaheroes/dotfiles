@@ -145,21 +145,13 @@ if [ "$(uname)" = "Darwin" ]; then
   export JAVA_HOME=`/usr/libexec/java_home -v "14.0.2"`
 fi
 
-# nodebrewの設定
-## Macの場合
-if [ "$(uname)" = "Darwin" ]; then
-export NODEBREW_ROOT=/opt/homebrew/var/nodebrew
-fi
-
 # PATHの設定
 ## Windows WSLの場合
 if [ "$(uname)" = "Linux" ]; then
   export PATH=$PATH:~/.local/bin
 ## Macの場合
 elif [ "$(uname)" = "Darwin" ]; then
-# /opt/homebrew/bin を $PATH より前に置くことで、.zprofile の python.org 挿入を無効化した後、python3 が確実にHomebrew版(3.13系)を指すようになる。
-#  export PATH=$PATH:~/Applications/apache-maven-3.8.8/bin:/opt/homebrew/bin:/usr/local/bin:/opt/homebrew/var/nodebrew/current/bin:$JAVA_HOME/bin:~/.local/bin
-  export PATH=/opt/homebrew/bin:/usr/local/bin:$PATH:~/Applications/apache-maven-3.8.8/bin:/opt/homebrew/var/nodebrew/current/bin:$JAVA_HOME/bin:~/.local/bin
+  export PATH=/opt/homebrew/opt/python@3.14/libexec/bin:/opt/homebrew/bin:/usr/local/bin:$PATH:~/Applications/apache-maven-3.8.8/bin:$JAVA_HOME/bin:~/.local/bin
 fi
 
 # nvm
@@ -169,6 +161,11 @@ if [ "$(uname)" = "Linux" ]; then
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 fi
+## Macの場合
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+
 
 # aliasの設定
 ## 共通設定
