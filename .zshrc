@@ -122,6 +122,14 @@ elif [ "$(uname)" = "Linux" ]; then
   ## aliasの設定
   alias ls="ls --color=auto"
 
+## Windows Git Bashの場合
+elif [[ "$(uname -s)" == MINGW* || "$(uname -s)" == MSYS* ]]; then
+  ## lsの色設定（GNU系：Git BashのlsはGNU coreutils）
+  export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+
+  ## aliasの設定
+  alias ls="ls --color=auto"
+
 fi
 
 ## 補完候補一覧の色設定
@@ -149,6 +157,11 @@ fi
 ## Windows WSLの場合
 if [ "$(uname)" = "Linux" ]; then
   export PATH=$PATH:~/.local/bin
+
+## Windows Git Bashの場合
+elif [[ "$(uname -s)" == MINGW* || "$(uname -s)" == MSYS* ]]; then
+  export PATH=$PATH:~/.local/bin
+
 ## Macの場合
 elif [ "$(uname)" = "Darwin" ]; then
   export PATH=/opt/homebrew/opt/python@3.14/libexec/bin:/opt/homebrew/bin:/usr/local/bin:$PATH:~/Applications/apache-maven-3.8.8/bin:$JAVA_HOME/bin:~/.local/bin
@@ -321,6 +334,11 @@ function fzf-cdr() {
   # Windows WSLの場合
   elif [ "$(uname)" = "Linux" ]; then
     selected_dir="$(cdr -l | sed -e 's/^[0-9]\+ \+//' | fzf --prompt="cdr >" --wrap --query "$LBUFFER" --reverse)"
+
+  # Windows Git Bashの場合
+  elif [[ "$(uname -s)" == MINGW* || "$(uname -s)" == MSYS* ]]; then
+    selected_dir="$(cdr -l | sed -e 's/^[0-9]\+ \+//' | fzf --prompt="cdr >" --wrap --query "$LBUFFER" --reverse)"
+
   fi
 
   if [ -n "$selected_dir" ]; then
